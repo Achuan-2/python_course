@@ -100,9 +100,8 @@ while True:
     sheet = wb.create_sheet(city)
 
     for row_index, node in enumerate(root, 1):
-        text = node.text
         cell = sheet.cell(row_index, 1)
-        cell.value = text
+        cell.value = node.text
 
 wb.save(target_excel_file_path)
 """

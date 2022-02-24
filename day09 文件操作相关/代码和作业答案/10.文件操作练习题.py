@@ -46,6 +46,14 @@ with open('files/access.log',mode='r',encoding='utf-8') as file_object:
             user_dict[user_ip] = 1
 print(user_dict)
 """
+"""
+user_dict = {}
+with open('files/access.log',mode='r',encoding='utf-8') as file_object:
+    for line in file_object:
+        user_ip = line.split(" ")[0]
+        user_dict[user_ip] = user_dict.get(user_ip,0) + 1
+print(user_dict)
+"""
 
 # 4.筛选出股票 当前价大于 20 的所有股票数据。
 """

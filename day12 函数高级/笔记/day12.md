@@ -70,7 +70,11 @@ execute()
       print("结束")
       
   execute()
-  
+  """
+  开始
+  你好
+  结束
+  """
   def func():
       print(666)
       
@@ -95,6 +99,11 @@ execute()
   
   func()
   execute()
+  """
+  开始
+  666
+  结束
+  """
   ```
 
 
@@ -111,11 +120,17 @@ def handler():
     print("昌平吴彦祖")
     def inner():
         print("朝阳大妈")
-	inner()
+    inner()
     func()
     print("海淀网友")
 
 handler()
+"""
+昌平吴彦祖
+朝阳大妈
+沙河高晓松
+海淀网友
+"""
 ```
 
 到现在你会发现，只要理解数据定义时所存在的作用域，并根据从上到下代码执行过程进行分析，再怎么嵌套都可以搞定。
@@ -124,7 +139,7 @@ handler()
 
 现在的你可能有疑问：为什么要这么嵌套定义？把函数都定义在全局不好吗？
 
-其实，大多数情况下我们都会将函数定义在全局，不会嵌套着定义函数。不过，当我们定义一个函数去实现某功能，想要将内部功能拆分成N个函数，又担心这个N个函数放在全局会与其他函数名冲突时（尤其多人协同开发）可以选择使用函数的嵌套。
+其实，大多数情况下我们都会将函数定义在全局，不会嵌套着定义函数。不过，当我们定义一个函数去实现某功能，**想要将内部功能拆分成N个函数，又担心这个N个函数放在全局会与其他函数名冲突时**（尤其多人协同开发）可以选择使用函数的嵌套。
 
 ```python
 def f1():
@@ -239,9 +254,9 @@ def run():
     name = "alex"
     def inner():
         print(name)
-	inner()
+    inner()
     
-run()
+run() # alex
 ```
 
 ![image-20201229131739455](assets/image-20201229131739455.png)
@@ -262,10 +277,12 @@ def run():
 	return inner
     
 v1 = run()
-v1()
+v1() # alex
 
 v2 = run()
-v2()
+v2() # alex
+
+# 函数在哪定义，调用的时候就会在哪个作用域！
 ```
 
 ![image-20201229132237241](assets/image-20201229132237241.png)
@@ -281,15 +298,16 @@ def run():
     name = "alex"
     def inner():
         print(name)
-	return [inner,inner,inner]
+    return [inner,inner,inner]
     
 func_list = run()
-func_list[2]()
-func_list[1]()
+func_list[2]() # alex
+func_list[1]() # alex
+
 
 funcs = run()
-funcs[2]()
-funcs[1]()
+funcs[2]() # alex
+funcs[1]() # alex
 ```
 
 ![image-20201229132648896](assets/image-20201229132648896.png)
@@ -300,7 +318,7 @@ funcs[1]()
 
 三句话搞定作用域：
 
-- 优先在自己的作用域找，自己没有就去上级作用域。
+-  **函数在哪定义，调用的时候就会优先在哪个作用域找变量，自己没有就去上级作用域**。
 - 在作用域中寻找值时，要确保此次此刻值是什么。
 - 分析函数的执行，并确定函数`作用域链`。（函数嵌套）
 
@@ -321,13 +339,10 @@ funcs[1]()
        res = inner()
        return res
    
-   v = func()
-   print(v)
-   
-   # 武沛齐
-   # None
+   v = func() # 武沛齐
+   print(v) # None
    ```
-
+   
 2. 分析代码，写结果
 
    ```python
@@ -340,11 +355,11 @@ funcs[1]()
        res = inner()
    	return res
    
-   v = func()
-   print(v)
+   v = func() # 武沛齐
+   print(v) # alex
    
-   # 武沛齐
-   # alex
+   
+   
    ```
 
 3. 分析代码，写结果
@@ -359,11 +374,11 @@ funcs[1]()
        return inner
    
    v = func()
-   result = v()
-   print(result)
+   result = v() # root
+   print(result) # admin
    
-   # root
-   # admin
+   
+   
    ```
 
 4. 分析代码，写结果
@@ -377,12 +392,12 @@ funcs[1]()
        return inner
    
    v11 = func()
-   data = v11()
-   print(data)
+   data = v11() # 武沛齐
+   print(data) # 路飞
    
    
-   v2 = func()()
-   print(v2)
+   v2 = func()() # 武沛齐
+   print(v2) # 路飞
    ```
 
 5. 分析代码，写结果
@@ -395,11 +410,11 @@ funcs[1]()
            return 'luffy'
        return inner
    
-   v1 = func('武沛齐')()
-   print(v1)
+   v1 = func('武沛齐')()  # 武沛齐
+   print(v1)  # luffy
    
-   v2 = func('alex')()
-   print(v2)
+   v2 = func('alex')() # 武沛齐
+   print(v2) # luffy
    ```
 
    ![image-20201229140559322](assets/image-20201229140559322.png)
@@ -417,8 +432,8 @@ funcs[1]()
    
    v1 = func('武沛齐')
    v2 = func('alex')
-   v1()
-   v2()
+   v1() # 武沛齐
+   v2() # alex
    ```
 
    ![image-20201229165929911](assets/image-20201229165929911.png)
@@ -436,15 +451,11 @@ funcs[1]()
            return 'root'
        return inner
    
-   v1 = func()()
-   v2 = func('alex')()
-   print(v1,v2)
-   
-   # 武沛齐
-   # alex
-   # root root
+   v1 = func()() # 武沛齐
+   v2 = func('alex')() # alex
+   print(v1,v2) # root root
    ```
-
+   
    ![image-20201229171258454](assets/image-20201229171258454.png)
 
 
@@ -453,47 +464,48 @@ funcs[1]()
 
 闭包，简而言之就是将数据封装在一个包（区域）中，使用时再去里面取。（本质上 闭包是基于函数嵌套搞出来一个中特殊嵌套）
 
-- 闭包应用场景1：封装数据防止污染全局。
+- 闭包应用场景1：封装数据防止污染全局。比如下面的示例中f4没有用到name和age参数（少用，闲的无聊这样搞）
 
-  ```python
-  name = "武沛齐"
-  
-  def f1():
-      print(name, age)
-  
-  def f2():
-  	print(name, age)
-  
-  def f3():
-  	print(name, age)
-      
-  def f4():
-      pass
-  ```
+    ```python
+    name = "武沛齐"
 
-  ```python
-  def func(age):
-      name = "武沛齐"
-  
-      def f1():
-          print(name, age)
-  
-      def f2():
-          print(name, age)
-  
-      def f3():
-          print(name, age)
-  
-      f1()
-      f2()
-      f3()
-  
-  func(123)
-  ```
+    def f1():
+        print(name, age)
+
+    def f2():
+    print(name, age)
+
+    def f3():
+    print(name, age)
+        
+    def f4():
+        pass
+    ```
+
+    ```python
+    def func(age):
+        name = "武沛齐"
+
+        def f1():
+            print(name, age)
+
+        def f2():
+            print(name, age)
+
+        def f3():
+            print(name, age)
+
+        f1()
+        f2()
+        f3()
+    def f4():
+        pass
+    func(123)
+    ```
 
   
 
-- 闭包应用场景2：封装数据封到一个包里，使用时在取。
+- 闭包应用场景2：封装数据封到一个包里，使用时再取。比如用于多线程、多进程等用途中
   ![image-20201229181719550](assets/image-20201229181719550.png)
 
   ```python
@@ -525,16 +537,43 @@ funcs[1]()
   inner_func_list[2]() # 33
   ```
 
-  
+  js、微信小程序闭包程序会比较信息，python并没有那么清晰
 
+  如果写下载多个视频的代码，你会怎么写？
+  
   ```python
-  """ 基于多线程去下载视频 """
+  import requests
+  video_list = [
+      ("东北F4模仿秀.mp4", "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0300f570000bvbmace0gvch7lo53oog"),
+      ("卡特扣篮.mp4", "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0200f3e0000bv52fpn5t6p007e34q1g"),
+      ("罗斯mvp.mp4", "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0200f240000buuer5aa4tij4gv6ajqg")
+  ]
+  for item in video_list:
+      res = requests.get(
+          url=item[1],
+          headers={
+              "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36 FS"
+          }
+      )
+      with open(item[0], mode='wb') as file_object:
+          file_object.write(res.content)
+  ```
+  
+  上面这种方式是串行，必须前一个视频下载完才能下载下一个
+  
+  如果用多线程来并行下载呢，为了每个task执行后能保存各自的文件，就需要用闭包来包裹保存文件函数，如果只定义task函数完成后的done函数，由于只传递一个参数，就只能保存为同一个视频名即覆盖原来的文件了，用闭包的话就可以再多传递参数。
+  
+  > 话说为什么不直接在task中干完所有活呢
+  
+  ```python
+  """
+  多线程，多个人干活。
+  """
+  import requests
   from concurrent.futures.thread import ThreadPoolExecutor
   
-  import requests
   
-  
-  def download_video(url):
+  def task(url):
       res = requests.get(
           url=url,
           headers={
@@ -544,29 +583,36 @@ funcs[1]()
       return res.content
   
   
+  # 下载完成之后，Python的多线程内部会执行的函数。
+  # 为什么要用闭包呢，如果只定义task函数完成后的done函数，由于只传递一个参数，就只能保存为同一个视频名即覆盖原来的文件了，用闭包的话就可以再多传递参数，
   def outer(file_name):
-      def write_file(response):
-          content = response.result()
+      def done(arg):
+          # 视频内容：task执行后的返回内容
+          content = arg.result()
           with open(file_name, mode='wb') as file_object:
               file_object.write(content)
+      return done
   
-      return write_file
   
-  
+  # 线程池10个人
   POOL = ThreadPoolExecutor(10)
   
-  video_dict = [
+  # 三个视频信息
+  video_list = [
       ("东北F4模仿秀.mp4", "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0300f570000bvbmace0gvch7lo53oog"),
       ("卡特扣篮.mp4", "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0200f3e0000bv52fpn5t6p007e34q1g"),
       ("罗斯mvp.mp4", "https://aweme.snssdk.com/aweme/v1/playwm/?video_id=v0200f240000buuer5aa4tij4gv6ajqg")
   ]
-  for item in video_dict:
-      future = POOL.submit(download_video, url=item[1])
-      future.add_done_callback(outer(item[0]))
-  
-  POOL.shutdown()
+  for item in video_list:
+      # 去线程池取一个人，让这个人执行去执行task函数（函数内部定义下载逻辑）
+      future = POOL.submit(task, url=item[1])
+      # 当执行完成task函数（下载完成）之后自动执行某个函数。
+      future.add_done_callback( outer(item[0]) )
+      print(item)
   ```
-
+  
+  
+  
   ![image-20201229185549102](assets/image-20201229185549102.png)
 
 
@@ -642,18 +688,18 @@ def outer(origin):
         print('inner')
         res = origin()
         print("after")
-        return res
+        return res # 处理返回值
     return inner
 
 func = outer(func)
 result = func()
 ```
 
-
+所谓的闭包可以这样理解，把函数当初变量，我定义一个函数来对函数进行通用处理
 
 ### 3.2 第二回合
 
-在Python中有个一个特殊的语法糖：
+在Python中有个一个特殊的语法糖@：
 
 ```python
 def outer(origin):
@@ -889,6 +935,8 @@ def login():
 app.add_url_rule("/index/", view_func=index)
 app.add_url_rule("/info/", view_func=info)
 app.add_url_rule("/login/", view_func=login)
+app.add_url_rule("/order/", view_func=order)
+
 
 app.run()
 ```
@@ -905,7 +953,7 @@ app = Flask(__name__)
 
 def auth(func):
     def inner(*args, **kwargs):
-        # 在此处，判断如果用户是否已经登录，已登录则继续往下，未登录则自动跳转到登录页面。
+        # 在此处，判断如果用户是否已经登录，已登录则继续往下，未登录则自动跳转到登录页面。（暂时留空）
         return func(*args, **kwargs)
 
     return inner
@@ -943,7 +991,7 @@ app.run()
 
 ### 重要补充：functools
 
-你会发现装饰器实际上就是将原函数更改为其他的函数，然后再此函数中再去调用原函数。
+你会发现装饰器实际上就是将原函数更改为其他的函数，然后在此函数中再去调用原函数。
 
 ```python
 def handler():
@@ -967,11 +1015,13 @@ handler()
 print(handler.__name__) # inner
 ```
 
+而functools可以让装饰器伪装的更像
+
 ```python
 import functools
 
 def auth(func):
-    @functools.wraps(func)
+    @functools.wraps(func) # inner.__name__ = func.__name__ inner.__doc__ = func.__doc__
     def inner(*args, **kwargs):
         return func(*args, **kwargs)
     return inner
@@ -984,7 +1034,7 @@ handler()
 print(handler.__name__)  # handler
 ```
 
-其实，一般情况下大家不用functools也可以实现装饰器的基本功能，但后期在项目开发时，不加functools会出错（内部会读取`__name__`，且`__name__`重名的话就报错），所以在此大家就要规范起来自己的写法。
+其实，一般情况下大家不用functools也可以实现装饰器的基本功能，但后期在项目开发时，不加functools会出错，比如flask（内部会读取`__name__`，且`__name__`重名的话就报错），所以在此大家就要规范起来自己的写法，以后写装饰器还是尽量加上functools这一行。
 
 
 
@@ -1008,13 +1058,13 @@ def auth(func):
 
 ## 总结
 
-1. 函数可以定义在全局、也可以定义另外一个函数中（函数的嵌套）
+1. 函数的嵌套：函数可以定义在全局、也可以定义另外一个函数中。
 
-2. 学会分析函数执行的步骤（内存中作用域的管理）
+2. 学会分析函数执行的步骤（内存中作用域的管理）：**函数在哪定义，调用的时候就会优先在哪个作用域找变量，自己没有就去上级作用域**。如果inner函数被调用，也是先在outer函数找变量。
 
-3. 闭包，基于函数的嵌套，可以将数据封装到一个包中，以后再去调用。
+3. **闭包**：基于函数的嵌套，可以将数据封装到一个包中，以后再去调用。（outer函数与inner函数）
 
-4. 装饰器
+4. **装饰器**
 
    - 实现原理：基于@语法和函数闭包，将原函数封装在闭包中，然后将函数赋值为一个新的函数（内层函数），执行函数时再在内层函数中执行闭包中的原函数。
 
@@ -1028,10 +1078,11 @@ def auth(func):
      import functools
      
      
-     def auth(func):
-         @functools.wraps(func)
+     def d(func):
+         # functools让装饰器更像原函数
+         @functools.wraps(func) # inner.__name__ = func.__name__ inner.__doc__ = func.__doc__
          def inner(*args, **kwargs):
-             """巴巴里吧"""
+             """装饰器"""
              res = func(*args, **kwargs)  # 执行原函数
              return res
      

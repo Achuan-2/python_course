@@ -1,17 +1,8 @@
 import sys
 
-print(sys.argv)
 
+print(sys.argv)  # ['2.接受执行脚本的参数.py', 'achuan', 'pic']
 
-# [
-#       '/Users/wupeiqi/PycharmProjects/luffyCourse/day14/2.接受执行脚本的参数.py'
-# ]
-
-# [
-#     "2.接受执行脚本的参数.py"
-# ]
-
-# ['2.接受执行脚本的参数.py', '127', '999', '666', 'wupeiqi']
 
 # 例如，请实现下载图片的一个工具。
 
@@ -27,4 +18,6 @@ def run():
 
 
 if __name__ == '__main__':
+    #  python 2.接受执行脚本的参数.py achuan pic
     run()
+    

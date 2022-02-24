@@ -20,4 +20,5 @@ with open('db.csv', mode='r', encoding='utf-8') as file_object:
         line = line.strip()
         row_list = line.split(',')
         # download(row_list[0], row_list[1])
+        #*row_list有解包的功能
         download(*row_list)

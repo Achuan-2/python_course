@@ -99,7 +99,7 @@
 - 文件操作
 - 文件夹和路径
 - csv格式文件
-- ini格式文件                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  
+- ini格式文件 
 - xml格式文件
 - excel文件
 - 压缩文件
@@ -428,7 +428,7 @@ The default mode is 'rt' (open for reading text).
   - 存在，清空再写
   - 不存在，创建再写
 
-- 只写：`x`、`xt`、`xb`
+- 只写：`x`、`xt`、`xb`（很少用）
 
   - 存在，报错
   - 不存在，创建再写。
@@ -713,7 +713,7 @@ file_object.close()
   f.close()
   ```
 
-  注意：在a模式下，调用write在文件中写入内容时，永远只能将内容写入到尾部，不会写到光标的位置。
+  **注意：在a模式下，调用write在文件中写入内容时，永远只能将内容写入到尾部，不会写到光标的位置。**
 
 - 获取当前光标位置
 
@@ -751,7 +751,7 @@ file_object.close()
 
 之前对文件进行操作时，每次都要打开和关闭文件，比较繁琐且容易忘记关闭文件。
 
-以后再进行文件操作时，推荐大家使用with上下文管理，它可以自动实现关闭文件。
+以后再进行文件操作时，**推荐大家使用with上下文管理**，它可以自动实现关闭文件。
 
 ```python
 with open("xxxx.txt", mode='rb') as file_object:
@@ -2152,7 +2152,7 @@ shutil.move("/Users/wupeiqi/PycharmProjects/CodeRepository/files","/Users/wupeiq
 
 6. 基本文件的读写、打开模式、上下文管理。
 
-7. 其他格式：csv、ini、xml、excel格式的处理（无序记忆，做好笔记即可）。
+7. 其他格式：csv、ini、xml、excel格式的处理（无需记忆，做好笔记即可）。
 
 
 
