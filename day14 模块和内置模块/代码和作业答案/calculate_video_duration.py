@@ -3,10 +3,8 @@ import cv2
 import pandas as pd
 import argparse
 
-
+# TODO 这个可以改成GUI代码
 def main():
-
-
     description = """
     Function：
         获取文件夹下的所有视频文件的时长，输出excel表格
@@ -76,10 +74,6 @@ def walk_videos(filepath):
     """
     table = []
     for path, dirs, files in os.walk(filepath):
-        # 递归遍历当前py目录下的所有目录及文件，比如遍历到/a/aa/aaa/aaa.txt，则path='/a/aa/aaa/',dir=path路径下的所有文件夹名称，dir=path路径下的所有文件的名称
-        # print(path)   # 当前所在路径
-        # print(dirs)   # 当前所在路径下的所有目录名
-        # print(files)   # 当前所在路径下的所有文件名
         for file_name in files:
             if is_video(file_name):
                 file_path=os.path.join(path, file_name)
@@ -102,16 +96,12 @@ def get_videos(filepath):
                 table.append(row)
     return table
 
-def is_video(file_name):
-    video_file_extensions = ('mp4','ts','mov','mov','wmv','flv','avi','mkv','mpeg','m4v','asf','f4v','rmvb' )
-
-    if file_name.endswith((video_file_extensions)):
-        return True
-
 
     
 def get_video_duration(file_path):
-
+    """
+    获取视频时长
+    """
     cap = cv2.VideoCapture(file_path)
     if cap.isOpened():  # 当成功打开视频时cap.isOpened()返回True,否则返回False
         rate = cap.get(5) # 获取帧率
@@ -120,10 +110,20 @@ def get_video_duration(file_path):
         return time_convert(duration)
     return -1
 
+def is_video(file_name):
+    """
+    判断文件是否为视频文件
+    """
+    video_file_extensions = ('mp4','ts','mov','mov','wmv','flv','avi','mkv','mpeg','m4v','asf','f4v','rmvb' )
+
+    if file_name.endswith((video_file_extensions)):
+        return True
+
+
 
 def time_convert(seconds):
     """
-        将秒换成合适的时间，如果超过一分钟就换算成"分钟:秒",如果是小时，就换算成"小时:分钟:秒"单位换算
+    将秒换成合适的时间，如果超过一分钟就换算成"分钟:秒",如果是小时，就换算成"小时:分钟:秒"单位换算
     """
     seconds=int(seconds)
     M, H = 60, 3600
@@ -141,7 +141,7 @@ def time_convert(seconds):
 
 def zero_align(num):
     """
-        将数字转换成两位数字，如果是一位数字，就在前面加一个0
+    将数字转换成两位数字，如果是一位数字，就在前面加一个0
     """
     return f'0{num}' if num < 10 else str(num)
 
@@ -152,5 +152,7 @@ def mkdir(path):
     """
     if not os.path.exists(path):
         os.makedirs(path)
+
+
 if __name__ == "__main__":
     main()
