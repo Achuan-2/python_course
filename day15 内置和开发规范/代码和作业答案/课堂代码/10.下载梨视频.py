@@ -15,9 +15,10 @@ with open('xxx.mp4', mode='wb') as file_object:
         file_object.write(chunk)
         file_object.flush()
 
-        message = "视频总大小为：{}字节，已下载{}字节。".format(file_size, download_size)
-        print(message)
+        message = "\r已下载{:.2f}%".format(download_size / file_size * 100)
+        print(message,end="")
 
     file_object.close()
 
 res.close()
+print()

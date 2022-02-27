@@ -21,3 +21,4 @@ app.add_url_rule('/users/', view_func=users, endpoint='users')
 
 if __name__ == '__main__':
     app.run()
+    # http://127.0.0.1:5000/users/

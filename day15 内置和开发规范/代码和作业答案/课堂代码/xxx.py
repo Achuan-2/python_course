@@ -2,15 +2,18 @@
 文件注释
 """
 
+# 导入模块顺序：内置、第三方、自定义
 import re
 import random
 
 import requests
 from openpyxl import load_workbook
 
+# 全局变量大写
 DB = "XXX"
 
 
+# 函数注释
 def do_something():
     """ 函数注释 """
 
@@ -29,6 +32,3 @@ def run():
 
 if __name__ == '__main__':
     run()
-
-
-

@@ -30,3 +30,9 @@ data_list = re.finditer("\d{6}(?P<year>\d{4})(?P<month>\d{2})(?P<day>\d{2})\d{3}
 for item in data_list:
     info_dict = item.groupdict()
     print(info_dict)
+
+#返回值
+"""
+{'year': '1919', 'month': '12', 'day': '01'}
+{'year': '1959', 'month': '12', 'day': '19'}
+"""
