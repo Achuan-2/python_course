@@ -7,7 +7,6 @@
 - 官方视频：[2020 python 3.9 全新教程【武沛齐单独录制】- 路飞学城&老男孩python全栈\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1m54y1r7zE)
 
 - 视频：
-
     - [2022 Python全栈开发（600集，学完直接就业）上篇\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1b3411a7aG)
     - [2022 Python全栈开发（600集，学完直接就业）中篇 哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1GR4y1g7FU?spm_id_from=333.999.0.0)
     - [2022 Python全栈开发（600集，学完直接就业）下篇\_哔哩哔哩\_bilibili](https://www.bilibili.com/video/BV1p44y157T3?p=18)
