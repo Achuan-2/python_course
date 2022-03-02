@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="js/js.js"></script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        background: color #f5f5f5;;
+    }
+    .td{
+        overflow: auto;
+        height: 400px;
+        width: 1226px;
+        margin: auto;
+        background-color:ghostwhite;
+    }
+    .box{
+        margin:0 auto;
+        border-collapse: collapse; 
+        border: 1px solid #ccc;
+    }
+    .box td{
+        
+        width: 170px;
+        text-align: center;
+        border:solid #ccc 1px;
+        margin: 0;
+    }   
+    fieldset{
+        width: 500px ;
+        margin:0 auto;
+        line-height: 35px;
+    }
+</style>
+
+</head>
+
+<body>
+<div class="td">
+<table class="box"  cellpadding="0">
+    <caption>员工管理系统</caption>
+    <thead>
+        <tr>
+            <th>姓名</th>
+            <th>年龄</th>
+            <th>部门</th>
+            <th>删除</th>
+            <th>编辑</th>
+        </tr>
+    </thead>
+    <tbody class="tbody">
+        <tr>
+            <td>张开</td>
+            <td>19</td>
+            <td>销售部</td>
+            <td><button onclick="del_btn(this)">删除</button></td>
+            <td><button onclick="edit_btn(this)">编辑</button></td>
+        </tr>
+        <tr>
+            <td>alex</td>
+            <td>35</td>
+            <td>客服部</td>
+            <td><button onclick="del_btn(this)">删除</button></td>
+            <td><button onclick="edit_btn(this)">编辑</button></td>
+        </tr>
+        <tr>
+            <td>武佩奇</td>
+            <td>21</td>
+            <td>运维部</td>
+            <td><button onclick="del_btn(this)">删除</button></td>
+            <td><button onclick="edit_btn(this)">编辑</button></td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<fieldset>
+    <legend>添加员工</legend>
+    <div class="add">
+        <p>姓名<input type="text" id="name"></p>
+        <p>年龄<input type="text" id="age"></p>
+        <p>部门
+            <select name="" id="dep">
+                <option value="卖拐部门">卖拐部门</option>
+                <option value="重金求子部门">重金求子部门</option>
+                <option value="来我办公室部门">来我办公室部门</option>
+            </select>
+        </p>
+        <button class="submit">提交</button>
+    </div>
+</fieldset>
+</body>
+<script>
+    var add_btn = document.getElementsByClassName("submit")[0]
+    var tbody = document.getElementsByTagName("tbody")[0]
+    
+    // 删除
+    function del_btn(self){
+        console.log(self)// 自己的 button 节点
+        var del_tr = self.parentElement.parentElement //父元素的父元素就是当前tr标签
+        tbody.removeChild(del_tr)
+    }
+    //编辑
+    function edit_btn(self){
+        //改内容 改onclick事件
+        self.innerHTML = "保存"
+        self.setAttribute("onclick","keep_btn(this)")
+
+        var children_td = self.parentElement.parentElement.children // 5个数据td
+        console.log(children_td)
+        for(var i=0; i<children_td.length-2;i++){
+            var input = document.createElement("input")
+            input.setAttribute("type","text");
+            input.value = children_td[i].innerHTML
+            children_td[i].innerHTML = ""
+            children_td[i].appendChild(input)
+        }
+    }
+    //保存
+    function keep_btn(self){
+        var children_td = self.parentElement.parentElement.children
+
+        for(i=0;i<children_td.length-2;i++){
+            var val = children_td[i].firstElementChild.value
+            children_td[i].innerHTML = val
+        }
+        self.innerHTML = '编辑'
+        self.setAttribute("onclick","edit_btn")
+    }
+    //创建td标签
+    function create_td(text,attr_val){
+        td = document.createElement("td")
+        var button = document.createElement("button")
+        button.innerHTML= text
+        button.setAttribute("onclick",attr_val)
+        td.appendChild(button)
+        return td
+    }
+    add_btn.onclick = function(){
+        var tr =  document.createElement("tr")
+        var inps = document.querySelectorAll("#name,#age,#dep") //已经输入三个节点的
+        // console.log(inps)
+
+        for(var i=0;i<inps.length;i++){
+            var td = document.createElement("td")
+            td.innerHTML = inps[i].value
+            tr.appendChild(td)
+        }
+        td = create_td("删除","del_btn(this)")
+        tr.appendChild(td)
+        td = create_td("编辑","edit_btn(this)")
+        tr.appendChild(td)
+        tbody.appendChild(tr)
+
+    }
+
+
+</script>
+
+
+</html>

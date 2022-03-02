@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="dist/js/jQuery3.6.js"></script>
+    <link rel="stylesheet" href="dist/css/bootstrap.css">
+    <link rel="stylesheet" href="dist/css/bootstrap-theme.css">
+    <script src="dist/js/bootstrap.js"></script>
+    <style>
+        body tbody{
+            /* border:1px solid gainsboro ; */
+        }
+        .form-horizontal{
+            /* background-color: gainsboro; */
+            border: 1px solid gray;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <table class="table table-bordered table-striped table-hover">
+            <caption class="text-center"><h1>员工管理系统</h1></caption>
+            <button class="btn btn-primary add_btn">添加员工</button>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>部门</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>alex</td>
+                    <td>35</td>
+                    <td>卖拐部门</td>
+                    <td>
+                        <button class="btn btn-default btn-danger btn-sm delete_btn">删除</button>
+                        <button class="btn btn-default btn-warning btn-sm edit_btn">编辑</button>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>武佩奇</td>
+                    <td>22</td>
+                    <td>来我办公室部门</td>
+                    <td>
+                        <button class="btn btn-default btn-danger btn-sm delete_btn">删除</button>
+                        <button class="btn btn-default btn-warning btn-sm edit_btn">编辑</button>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>黑姑凉</td>
+                    <td>18</td>
+                    <td>重金求子部门</td>
+                    <td>
+                        <button class="btn btn-default btn-danger btn-sm delete_btn">删除</button>
+                        <button class="btn btn-default btn-warning btn-sm edit_btn">编辑</button>
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">添加员工</h4>
+        </div>
+        <div class="modal-body">
+            <form class=" ">
+                <div class="form-group ">
+                    <label for="name" >姓名</label>
+                    <input type="text" class="form-control " id="name" placeholder="name">
+                </div>
+                <div class="form-group">
+                    <label for="age" >年龄</label>
+                    <input type="text" class="form-control" id="age" placeholder="age">
+                </div>
+                <div class="form-group">
+                    <label for="dep" >部门</label>
+                    <select name="" id="dep" class="form-control">
+                        <option value="卖拐部门">卖拐部门</option>
+                        <option value="来我办公室部门">来我办公室部门</option>
+                        <option value="重金求子部门">重金求子部门</option>
+                    </select>
+                </div>
+
+            </form> 
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary keep_btn">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</body>
+<script>
+    //删除
+    $("tbody").on("click",".delete_btn",function (){
+        $(this).parent().parent().remove()
+
+        $("tbody tr td:first-child").each(function (i){
+            console.log(i)
+            $(this).text(i+1)
+        })
+    })
+    //编辑
+    $("tbody").on("click",".edit_btn",function (){
+        $(this).html("保存").attr("class","btn btn-sm btn-success keep_btn")
+
+        //siblings是返回所有同级元素,不包括自己
+        $(this).parent().siblings().each(function(){
+            if($(this).index()!==0){
+                console.log($(this)) //3个td
+                var val = $(this).text()
+                var inp = `<input type="text" value="${val}">`
+                $(this).html("");
+                $(this).append(inp)
+            }
+        })
+    })
+    //保存
+    //children().first() 所有子元素的第一个元素.
+    $("tbody").on("click",".keep_btn",function(){
+        $(this).text("编辑").attr("class","btn btn-sm btn-warning edit_btn")
+
+        $(this).parent().siblings().each(function(){
+            if($(this).index() !== 0){
+                var $val = $(this).children().first().val()
+                $(this).text($val)
+            }
+        })
+    })
+    // 显示添加员工界面
+    $(".container .add_btn").click(function (){
+        $("#myModal").modal("show")
+    })
+
+    // 添加员工保存按钮
+    $(".modal-content .keep_btn").click(function (){
+        $("#myModal").modal("hide")
+        var name = $("#name").val()
+        var age  = $("#age").val()
+        var dep  = $("#dep").val()
+        var num = $("tbody").children().length+1
+        var tr = `<tr>
+                    <td>${num}</td>
+                    <td>${name}</td>
+                    <td>${age}</td>
+                    <td>${dep}</td>
+                    <td>
+                        <button class="btn btn-default btn-danger btn-sm delete_btn">删除</button>
+                        <button class="btn btn-default btn-warning btn-sm edit_btn">编辑</button>
+                    </td>       
+                </tr>`
+        $("tbody").append(tr)
+
+    })
+
+
+</script>
+</html>

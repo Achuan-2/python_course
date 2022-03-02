@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>bootstrap版</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div>
+    <button class="btn btn-default" data-toggle="modal" data-target="#myModal" id="add">新增</button>
+</div>
+<table class="table table-hover">
+
+    <thead>
+    <tr>
+        <th>序号</th>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>操作</th>
+    </tr>
+    </thead>
+    <tbody id="content">
+    <tr>
+        <td>1</td>
+        <td>张伟</td>
+        <td>33</td>
+        <td>
+            <button class="btn btn-info btn-sm edit" data-toggle="modal" data-target="#myModal">编辑</button>
+            <button class="btn btn-sm btn-danger del">删除</button>
+        </td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>庆侠兄弟</td>
+        <td>16</td>
+        <td>
+            <button class="btn btn-info btn-sm edit" data-toggle="modal" data-target="#myModal">编辑</button>
+            <button class="btn btn-sm btn-danger del">删除</button>
+        </td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>王小二</td>
+        <td>20</td>
+        <td>
+            <button class="btn btn-info btn-sm edit" data-toggle="modal" data-target="#myModal">编辑</button>
+            <button class="btn btn-sm btn-danger del">删除</button>
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title" id="myModalLabel">新增/编辑模态框</h4>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <input type="text" class="form-control" placeholder="username" id="username">
+                    <br>
+                    <input type="text" class="form-control" placeholder="age" id="age">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" id="close">Close</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="save">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    // 点击新增按钮，首先清空input的值
+    $("#add").click(function () {
+        $("#username").val("");
+        $("#age").val("");
+		$("#myModalLabel").text("新增");
+    });
+    // 实现添加功能
+    $("#save").on("click", function () {
+        var $currentTr = $(this).data("currentTr");
+        // console.log(1111111, $currentTr);
+        var $userName = $("#username");
+        var $age = $("#age");
+        if ($currentTr != undefined) { // 表示是编辑操作
+            $currentTr.find('td').eq(1).text($userName.val());
+            $currentTr.find('td').eq(2).text($age.val());
+        } else { // 表示是新增操作
+            var num = $("#content tr").length + 1;
+            var trHtml = '<tr>\n' +
+                '        <td>' + num + '</td>\n' +
+                '        <td>' + $userName.val() + '</td>\n' +
+                '        <td>' + $age.val() + '</td>\n' +
+                '        <td>\n' +
+                '            <button class="btn btn-info btn-sm edit" data-toggle="modal" data-target="#myModal">编辑</button>\n' +
+                '            <button class="btn btn-sm btn-danger del">删除</button>\n' +
+                '        </td>\n' +
+                '    </tr>';
+            $("#content").append(trHtml);
+        }
+        // 每次新增后都要清空input框内容
+        $userName.val("");
+        $age.val("");
+        // 清空 $(this).data(currentTr)
+        $(this).removeData("currentTr")
+    });
+    // 编辑功能，当点击编辑按钮的时候，应该将内容添加到input框中，编辑后再保存,这里的重点要用到事件委派
+    $("#content").on("click", '.edit', function () {
+		$("#myModalLabel").text("编辑");
+        // 将当前行的内容放到input中
+        var username = $(this).parent().parent().find('td').eq(1).text();
+        var age = $(this).parent().parent().find('td').eq(2).text();
+        $("#username").val(username);
+        $("#age").val(age);
+        // 由于新增和编辑按钮公用modal框，所以，通过加属性的方式做区分
+        var $currentTr = $(this).parent().parent();
+        $("#save").data("currentTr", $currentTr);
+    });
+    // 删除功能，点击删除按钮，删除当前行,也要用到事件委派
+    $("#content").on("click", '.del', function () {
+        // 删除当前行之前，要重新对序号列进行整理
+        // var currentNum = $(this).parent().siblings(":first").text();
+        $(this).parent().parent().nextAll().each(function () {
+            var currentNum = $(this).find("td").eq(0).text();
+            $(this).find("td").eq(0).text(currentNum - 1);
+        });
+        $(this).parent().parent().remove();
+    })
+</script>
+</html>

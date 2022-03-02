@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        /*
+        权重值只和相同类中值相加对比.
+        行内选择器:1000
+        id:100  class 10  标签名:1
+        !important
+
+        */
+
+
+         /*#i1{*/
+         /*   color: #336699;*/
+         /*}*/
+         /*.c1{*/
+         /*   color: red;*/
+         /*}*/
+         /*div{*/
+         /*   color: #424242;*/
+         /*}*/
+
+        /* 权重数值 3个class 每个10  30 */       
+         .c2 .c3 .c5{
+             color: red;
+         }
+        /* 一个数值 100 */
+         #i2{
+            color: rebeccapurple;
+         }
+        /* 21 */
+        .c2 .c4 div{
+            color: green;
+        }
+        /* 31 */
+        .c2 .c3 .c4 div{
+            color: lightcoral;
+        }
+        /* 30 */
+        .c2 .c4 .c5{
+            color: lightskyblue;
+        }
+
+        /* !important 最高级别,都听他的 */
+         .c5{
+             color: chartreuse!important; 
+         }
+
+
+
+
+    </style>
+</head>
+<body>
+
+
+<div id="i1" class="c1">alvin</div>
+
+<div class="c2">
+    <div class="c3">
+        <div class="c4">
+            <div class="c5" id="i2" style="color: orange">item</div> <!-- 标签里style权重值 1000 -->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

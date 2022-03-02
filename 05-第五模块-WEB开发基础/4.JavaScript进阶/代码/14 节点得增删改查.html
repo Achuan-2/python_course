@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<button class="add_btn">添加节点</button>
+<button class="del_btn">删除节点</button>
+<button class="replace_btn">替换节点</button>
+<div class="c1">
+    <h3 class="c6">hello JS!</h3>
+    <h3 class="c2">hello world</h3>
+</div>
+
+
+<script>
+
+    var add_btn = document.querySelector(".add_btn");
+    var del_btn = document.querySelector(".del_btn");
+    var replace_btn = document.querySelector(".replace_btn");
+
+    var c1 = document.querySelector(".c1"); // dom 文档
+    var c2 = document.querySelector(".c2");
+    var c6 = document.getElementsByClassName("c6")[0]
+    console.log(c6)
+    add_btn.onclick = function () {
+        // 创建节点
+
+        var ele = document.createElement("img");  // <img>
+        ele.src = "https://img2.baidu.com/it/u=1613029778,1507777131&fm=26&fmt=auto&gp=0.jpg"
+        console.log(ele);
+
+
+        // 添加节点
+        c1.appendChild(ele);
+
+        
+        // parentNode.insertBefore(newNode, referenceNode);
+        // parentNode 新插入节点的父节点  newNode 用于插入的节 referenceNode 将要插在这个节点之前. 如果 referenceNode 为 null 则 newNode 将被插入到子节点的末尾。
+        // c1.insertBefore(ele,c6)  
+
+    };
+
+
+    del_btn.onclick = function () {
+        // 删除子节点   class为c2
+        c1.removeChild(c2);
+    };
+
+
+    replace_btn.onclick = function () {
+
+        // 创建替换节点
+
+        var ele = document.createElement("img");  // <img>
+        ele.src = "https://img2.baidu.com/it/u=1613029778,1507777131&fm=26&fmt=auto&gp=0.jpg"
+        console.log(ele);
+
+        // 替换节点  把c2替换成ele
+        c1.replaceChild(ele, c2);
+
+    }
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,129 @@
+HTML hyperText Markup Language
+      超文本     标记    语言
+-- HTML 标签英文
+head 头部
+body 主体 身体
+metadata  元数据
+title  标题
+<h1>--<h6>
+strong 强壮的
+Non-breaking-space  不间断空格
+unorder list   无序列表
+order  list    有序列表
+border   边界
+cellpadding  规定单元边沿与其内容之间的空白
+cellspacing  固定单元格之间的空白
+form     表单
+action  动作  提交的位置
+method  方法
+enctype  提交类型
+    "application/x-www-form-urlencoded"  #url方式
+     Content_Type : multipart/form-data  #发送文件
+label 标签
+input 输入
+type = text | checkbox 选择框  radio单选
+name  value   一对键值对
+gender 性别
+select  选择
+option  选项
+textarea  文本框
+rows   行
+cols   列
+button   按钮
+reset   重置
+placeholder 占位符
+multiple    多样的
+
+-- 属性
+align 排列
+    left
+    right
+    center
+    justify 两端对齐
+<a>
+    href  = 目标url
+    target = 打开方式
+            _blank  新窗口打开,   blank 空白
+            _parent 在父窗口中打开链接。
+            _self   默认 当前页码跳转
+            _top    在当前窗体打开链接，并替换当前的整个窗体(框架页)。
+
+----------------------------------------------------------
+# 学习路线：
+    Python基础
+    数据库（Mysql）
+    前端
+    Django flask
+    项目阶段
+
+# HTTP协议：
+    请求协议：
+      请求首行   请求方式  URL路径？数据
+      请求头
+      空行
+      请求体
+      
+    GET和POST
+      响应首行
+      响应头
+      响应体
+      
+标签：
+  按格式： 
+      闭合标签：<h1>内容</h1>
+      自闭合标签：<img src=''>
+  
+  <标签名 属性1=“属性值1” 属性2=“属性值2”……>内容部分</标签名>
+  <标签名 属性1=“属性值1” 属性2=“属性值2”…… />
+  
+  <a><b>yuan</a></b>
+  
+  按功能分类：
+       块级标签 （block）:
+            独占一行
+            比如  p , h1-h6 ，div，ul，li
+       内联标签 （inline）:   
+            按内容占位置  
+            
+            b，strong，i，em del，span
+            a，img，input
+
+            
+        基本嵌套原则：
+            块级可以嵌套块级和内联
+            内联只可以嵌套内联
+            
+
+客户端（浏览器）向服务端发送请求形式：
+    
+    1、地址栏请求    get请求
+    2、超链接标签    get请求
+    3、form表单      get、post请求
+    4、ajax    
+    
+    
+    
+Content_Type : multipart/form-data  发送文件
+Content_Type : application/x-www-form-urlencoded      例如  "a=1&b=2&c=3"
+Content_Type : json      例如  {"a":1,"b":2}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

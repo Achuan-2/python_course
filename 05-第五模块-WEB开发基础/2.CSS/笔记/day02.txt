@@ -1,0 +1,82 @@
+
+css 选择器
+.c1{  }  类选择器
+*{ } 通配符选择
+p{ } 标签选择器
+#id{} id选择器
+.c1 .c2 .c3{ color: red;}  后代选择器 最终选的是 .c3 
+.c1 > .c3{}  子代选择器 
+div.c1,#i1{} div标签同时类名c1 , 或者,  id叫i1 的
+.c2 + .c3{ } 毗邻选择器   .c2 旁边的 .c3  
+.c2 ~ div{} 普通兄弟器
+属性选择器
+    input[type="text"] 
+    div[k1="v1"]   /* div标签里自定义的键值*/   
+    [href$=".png"]  /* href 值里包含.png */
+    [class*="col-md-"] /*class 值里包含col-md-  */
+伪类选择器
+    a:link  /* a标签,  link 链接  未访问的链接*/
+    a:visited /*    已访问的 */
+    a:hover  /*  hover 盘旋   数据经过时候 */
+    a:action  /* 鼠标点击的时候 */
+    .c1 p:first-child  /* .c1 类里 第一个p
+    p:last-child    选择所有p元素的最后一个子元素
+    #i1:after         /* 在每个<i1>元素之后插入内容
+    p:before          /* 在每个<p>元素之前插入内容
+    input:focus     /* 选择元素输入后具有焦点
+
+
+css 属性
+    font-style 字体样式风格
+    font-weight 字体粗细
+    font-size   字体大小
+    font-family  字体族
+    color        颜色
+    text-align  文本对齐方式
+    line-height 字体行高
+    vertical-align  垂直对齐方式
+    text-decoration  文本内容装饰线条
+
+    background-color  背景颜色
+    background-image  背景图片
+    background-repeat 背景平铺方式
+    background-postion 背景定位
+    background: 背景颜色  背景图片  背景平铺方式  背景定位;
+
+    border-style     边框风格
+    border-top-style 
+    border-bottom-style 
+    border-left-style
+    border-right-style 
+    border-width  边框宽度
+    border-color  边框颜色
+
+    list-style-type   列表项目符号
+    list-style-iamge  自定义项目符号
+
+    display: block  inline  inline-block  none 
+
+    padding  内边距
+    margin   外边距
+    float  
+    clear :  left  right  both  none
+    postion: static  relative  ablsolute fixed
+    
+
+------------------------------------------------------
+块级（block）：  <div>
+    独占一行
+	可以设置宽高属性
+内联（inline）：   <span>
+    按内容占比	
+	不可以设置宽高
+	
+
+布局核心问题： 如何能够让多个可以设置长宽的元素在一行显示
+
+解决办法：
+     display：inline-block
+	 float
+	 
+	 
+DIV+CSS

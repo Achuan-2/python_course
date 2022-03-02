@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        /* 浮动元素会影响下一个元素的位置, 浮动元素浮动到哪里看上一个元素属性 块元素就不懂, 也是浮动元素就排后面 */
+        .c1{
+            width: 200px;
+            height: 200px;
+            background-color: indianred;
+            float: left;  
+
+        }
+
+        .c2{
+            width: 300px;
+            height: 200px;
+            background-color: orange;
+            /* float: left;   */
+        }
+
+        .c3{
+            /* clear:both; */
+            width: 400px;
+            height: 200px;
+            background-color: lightblue;
+            float: left;
+
+        }
+
+
+    </style>
+</head>
+<body>
+
+<div class="c1">111</div>
+<div class="c2">222</div>
+<div class="c3">333</div>
+
+</body>
+</html>

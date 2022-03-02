@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+            /* 未访问的链接 */
+           a:link{
+               color:grey;
+           }
+            /* 已访问的链接 */
+           a:visited{
+               color: coral;
+           }
+           /* 鼠标划过链接 */
+           a:hover{
+               color: blue;
+           }
+           /* 已选中的链接 */
+           a:active{
+               color: rebeccapurple;
+           }
+           /* c1 类里 第一个 p标签 */
+           .c1 p:first-child{
+               color: red;
+           }
+           /* id i1 里最后的元素里 添加 */
+           #i1:after{
+               content: "这是一个伪类构造的块级标签";
+               display: block;
+               color: red;
+           }
+
+
+    </style>
+</head>
+<body>
+
+<a href="http://www.qq.com">hello world! </a>
+
+
+<div class="c1">
+    <p>item1</p>
+    <p>item2</p>
+    <div>item3</div>
+    <p>item4</p>
+</div>
+
+<div id="i1">
+    DIV标签
+    <!--    <div style="color: red">这是一个伪类构造的块级标签</div>-->
+</div>
+
+
+
+
+
+</body>
+</html>

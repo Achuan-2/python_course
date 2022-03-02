@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+        <!---  以下是远程地址  -->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script>
+<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+<!-- 可选的 Bootstrap 主题文件（一般不用引入） -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap-theme.min.css" integrity="sha384-6pzBo3FDv/PJ8r2KRkGHifhEocL+1X2rVCTTkUfGk7/0pbek5mMa1upzvWbrUbOZ" crossorigin="anonymous">
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+</head>
+</head>
+<body>
+    <div class="container col-md-6 col-md-offset-3">
+        <table class="table table-bordered">
+            <button class="add_btn">新增</button>
+            <caption class="text-center">员工管理系统</caption>
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>姓名</th>
+                    <th>年龄</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>alex</td>
+                    <td>21</td>
+                    <td>
+                        <button class="btn delete_btn">删除</button>
+                        <button class="btn modify_btn">修改</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>武佩奇</td>
+                    <td>28</td>
+                    <td>
+                        <button class="btn delete_btn">删除</button>
+                        <button class="btn modify_btn">修改</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>黑姑凉</td>
+                    <td>28</td>
+                    <td>
+                        <button class="btn delete_btn">删除</button>
+                        <button class="btn modify_btn">修改</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">添加人员</h4>
+        </div>
+        <div class="modal-body">
+          <label for="name">姓名</label>
+          <input type="text" id="name" placeholder="name">
+          <br>
+          <label for="age">年龄</label>
+          <input type="text" id="age" placeholder="age">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default Close" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary save_btn">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+var ID = false
+// 添加
+$(".add_btn").click(function(){
+    $("#myModal").modal("show")
+})
+//保存
+$(".save_btn").click(function(){
+    if(ID == false){
+        var name = $("#age").val()
+        var age  = $("#age").val()
+        var num  = $("tbody tr").length+1
+        // console.log(name,age,num)
+        var tr =`                
+                <tr>
+                    <td>${num}</td>
+                    <td>${name}</td>
+                    <td>${age}</td>
+                    <td>
+                        <button class="btn delete_btn">删除</button>
+                        <button class="btn modify_btn">修改</button>
+                    </td>
+                </tr>`
+        $("tbody").append(tr)
+        $("#myModal").modal("hide")
+        $("#name").val("")
+        $("#age").val("")
+    }else{  //编辑保存
+        var name = $("#name").val()
+        var age  = $("#age").val()
+        // console.log(ID,name,age)
+        $("tbody tr").eq(ID-1).children().eq(1).text(name)
+        $("tbody tr").eq(ID-1).children().eq(2).text(age)
+
+        $("#myModal").modal("hide")
+        $("#name").val("")
+        $("#age").val("")
+        ID = false
+    }   
+})
+//删除
+$("tbody").on('click','.delete_btn',function(){
+    $(this).parent().parent().remove()
+    //序号排列
+    $("tbody tr td:first-child").each(function(i){
+        $(this).text(i+1)
+    })
+})
+
+// 编辑
+$("tbody").on('click','.modify_btn',function(){
+    $("#myModalLabel").text("修改")
+    ID = $(this).parent().siblings().eq(0).text()
+    var name = $(this).parent().siblings().eq(1).text()
+    var age = $(this).parent().siblings().eq(2).text()
+    $('#name').val(name)
+    $('#age').val(age)
+
+    $("#myModal").modal("show")
+})
+// Close
+$(".Close").click(function(){
+    $("#name").val("")
+    $("#age").val("")
+    ID = false
+})
+
+</script>
+</html>

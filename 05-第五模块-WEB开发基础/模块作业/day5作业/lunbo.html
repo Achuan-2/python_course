@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="dist/js/jQuery3.6.js"></script>
+    <style>
+        *{margin:0;padding:0;}
+        ul{list-style-type: none;}
+        .centent{
+            width:590px;
+            height: 470px;
+            margin:100px auto 0 auto;
+            position:relative;
+            /* border:1px solid red; */
+            
+        }
+        .img li{
+            position:absolute;
+            top:0;
+            left:0;
+        }
+        .centent .num{
+            position:absolute;
+            z-index: 100;
+            bottom:16px;
+            right:16px;
+        }
+        .centent .num li{
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background-color: grey;
+            border-radius: 16px;
+            margin-right:5px;
+            opacity:0.7;
+        }
+        .num li.current{   /* . 与 */
+            background-color: red;
+        }
+        .btn li{
+            position: absolute;
+            top:50%;
+            margin-top:-17px;
+            width: 25px;
+            height: 35px;
+            background-color: grey;
+            text-align: center;
+            line-height: 35px;
+            color:#fff;
+            opacity:0.5;
+            cursor:pointer;
+        }
+        .btn .left_btn{
+            left:0;
+        }
+        .btn .right_btn{
+            right:0;
+        }
+
+        .centent .hide{
+            display:none
+        }
+    </style>
+</head>
+<body>
+    <div class="centent">
+        <ul class="img">
+            <li class=""><a href=""><img src="https://imgcps.jd.com/ling4/100016046426/5L2g5oOz6KaB55qE55S15Zmo/54iG5qy-55u06ZmN/p-5bd8253082acdd181d02fa2e/7d18dccb/cr/s/q.jpg" alt=""></a></li>
+            <li class="hide"><a href=""><img src="https://img30.360buyimg.com/pop/s590x470_jfs/t1/197993/1/10907/49997/61555fd4Eea6144ff/630d0b6834ba196a.jpg.webp" alt=""></a></li>
+            <li class="hide"><a href=""><img src="https://imgcps.jd.com/ling4/100018640796/6auY5oCn6IO95omL5py657K-6YCJ/54iG5qy-55u06ZmN/p-5bd8253082acdd181d02fa1f/1bfa627c/cr/s/q.jpg" alt=""></a></li>
+            <li class="hide"><a href=""><img src="https://imgcps.jd.com/ling4/33950552707/6auY5oCn6IO955S16ISR5LyY6YCJ/54iG5qy-55u06ZmN/p-5bd8253082acdd181d02fa06/ed51e578/cr/s/q.jpg" alt=""></a></li>
+            <li class="hide"><a href=""><img src="https://imgcps.jd.com/ling4/10024696984098/6auY5oCn6IO95omL5py65LyY6YCJ/54iG5qy-55u06ZmN/p-5bd8253082acdd181d02fa7a/07f521ea/cr/s/q.jpg" alt=""></a></li>
+        </ul>
+        <ul class="num">
+            <li class="current"></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <ul class="btn">
+            <li class="left_btn"> < </li>
+            <li class="right_btn"> > </li>
+        </ul>
+    </div>
+</body>
+<script>
+    //单击
+    var i = 0
+    $(".centent .btn .right_btn").click(go_right);
+    $(".centent .btn .left_btn").click(go_left);
+    function go_right(){
+        if(i === 4){
+            i = -1
+        }
+        i++
+        $(".centent .img li").eq(i).stop().fadeIn(1000).siblings().stop().fadeOut(1000)
+        $(".centent .num li").eq(i).addClass("current").siblings().removeClass("current")
+    }
+    function go_left(){
+        if(i === 0){
+            i = 5
+        }
+        i--
+        $(".centent .img li").eq(i).stop().fadeIn(1000).siblings().stop().fadeOut(1000)
+        $(".centent .num li").eq(i).addClass("current").siblings().removeClass("current")
+    }
+    // 自动轮播
+    var ID = setInterval(go_right,2000)
+    $(".centent").hover(function(){
+        clearInterval(ID)
+    },function(){
+        ID = setInterval(go_right,2000)
+    })
+</script>
+</html>
