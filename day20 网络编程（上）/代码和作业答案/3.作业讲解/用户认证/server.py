@@ -3,7 +3,7 @@ import json
 
 # 1.监听本机的IP和端口
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('127.0.0.1', 8001))  # 127.0.0.1 或 查看自己局域网本地IP地址
+sock.bind(('192.168.28.14', 8001))  # 127.0.0.1 或 查看自己局域网本地IP地址
 sock.listen(5)
 
 while True:

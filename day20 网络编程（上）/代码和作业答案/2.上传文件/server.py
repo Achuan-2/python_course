@@ -1,7 +1,7 @@
 import socket
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('127.0.0.1', 8001))  # 127.0.0.1 或 查看自己局域网本地IP地址
+sock.bind(('192.168.28.14', 8001))  # 127.0.0.1 或 查看自己局域网本地IP地址
 sock.listen(5)
 
 conn, addr = sock.accept() # 阻塞
@@ -11,7 +11,7 @@ data = conn.recv(1024)
 total_file_size = int(data.decode('utf-8'))
 
 # 接收文件内容
-file_object = open('xxx.png', mode='wb')
+file_object = open('yyy.png', mode='wb')
 recv_size = 0
 while True:
     # 每次最多接收1024字节（1000）
@@ -22,8 +22,9 @@ while True:
     recv_size += len(data)
     # 上传完成
     if recv_size == total_file_size:
+        conn.sendall("上传完成!".encode("utf-8"))
         break
-
+print("接收到yyy.png文件")
 # 接收完毕，关闭连接
 conn.close()
 sock.close()

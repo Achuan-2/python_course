@@ -1646,251 +1646,97 @@ print(cls)
 
 ## 作业
 
-1. super的作用？
-
-2. 看图分析类A的继承关系
-   ![image-20210202180951900](assets/image-20210202180951900.png)
-
-3. 看代码写结果
-
-   ```python
-   class Foo(object):
-       def __init__(self, name, age):
-           self.name = name
-           self.age = age
-   
-       @property
-       def message(self):
-           return "{}-{}".format(self.name, self.age)
-   
-   
-   class Bar(Foo):
-       def __init__(self, email, *args, **kwargs):
-           super().__init__(*args, **kwargs)
-           self.email = email
-   
-       def total(self):
-           data = "{}-{}-{}".format(self.name, self.age, self.email)
-           return data
-   
-   
-   obj1 = Foo("武沛齐", 20)
-   print(obj1.message)
-   
-   obj2 = Bar("xx@live.com", "root", 100)
-   print(obj2.message)
-   obj2.total()
-   ```
+1、 super的作用？
 
-4. 看代码写结果
+2、 看图分析类A的继承关系
+![image-20210202180951900](assets/image-20210202180951900.png)
 
-   ```python
-   class Foo(object):
-       def __call__(self, *args, **kwargs):
-           return 666
-       
-   data_list = [
-       "武沛齐",
-       dict,
-   	lambda :123,
-       True,
-       Foo,
-       Foo()
-   ]
-   
-   for item in data_list:
-       if callable(item):
-           val = item()
-           print(val)
-   	else:
-           print(item)
-   ```
+3、 看代码写结果
 
-5. 如何主动触发一个异常？
+```python
+class Foo(object):
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
-6. 反射的作用？
+    @property
+    def message(self):
+        return "{}-{}".format(self.name, self.age)
 
-7. 看代码写结果
 
-   ```python
-   class Person(object):
-       title = "北京"
-   
-       def __init__(self, name, wx):
-           self.name = name
-           self.wx = wx
-   
-       def show(self):
-           message = "姓名{}，微信：{}".format(self.name, self.wx)
-           return message
-   
-       @property
-       def message(self):
-           return 666
-   
-       @staticmethod
-       def something():
-           return 999
-   
-   
-   obj = Person("武沛齐", "wupeiqi666")
-   
-   print(getattr(obj, 'wx'))
-   print(getattr(obj, 'message'))
-   print(getattr(obj, 'show')()) 
-   print(getattr(obj, 'something')())
-   ```
+class Bar(Foo):
+    def __init__(self, email, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.email = email
 
+    def total(self):
+        data = "{}-{}-{}".format(self.name, self.age, self.email)
+        return data
 
 
+obj1 = Foo("武沛齐", 20)
+print(obj1.message)
 
+obj2 = Bar("xx@live.com", "root", 100)
+print(obj2.message)
+obj2.total()
+```
 
+4、 看代码写结果
 
+```python
+class Foo(object):
+    def __call__(self, *args, **kwargs):
+        return 666
+    
+data_list = [
+    "武沛齐",
+    dict,
+lambda :123,
+    True,
+    Foo,
+    Foo()
+]
 
+for item in data_list:
+    if callable(item):
+        val = item()
+        print(val)
+else:
+        print(item)
+```
 
+5、 如何主动触发一个异常？
 
+6、 反射的作用？
 
+7、 看代码写结果
 
+```python
+class Person(object):
+    title = "北京"
 
+    def __init__(self, name, wx):
+        self.name = name
+        self.wx = wx
 
+    def show(self):
+        message = "姓名{}，微信：{}".format(self.name, self.wx)
+        return message
 
+    @property
+    def message(self):
+        return 666
 
+    @staticmethod
+    def something():
+        return 999
 
 
+obj = Person("武沛齐", "wupeiqi666")
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+print(getattr(obj, 'wx'))
+print(getattr(obj, 'message'))
+print(getattr(obj, 'show')()) 
+print(getattr(obj, 'something')())
+```

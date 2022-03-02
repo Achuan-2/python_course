@@ -3,7 +3,7 @@ import json
 
 # 1. 向指定IP发送连接请求
 client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client.connect(('127.0.0.1', 8001))
+client.connect(('192.168.28.14', 8001))
 
 # 2.连接成功后，获取系统登录信息
 message = client.recv(1024)

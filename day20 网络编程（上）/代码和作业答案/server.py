@@ -2,7 +2,7 @@ import socket
 
 # 1.监听本机的IP和端口
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-sock.bind(('127.0.0.1', 8001)) # IP,端口
+sock.bind(('192.168.28.14', 8001))  # IP,端口
 sock.listen(5) # 支持排队等待5人
 
 while True:
@@ -14,7 +14,7 @@ while True:
     print(client_data.decode('utf-8')) # 字节
 
     # 4.给连接者回复消息
-    conn.sendall("hello world".encode('utf-8'))
+    conn.sendall("我很好".encode('utf-8'))
 
     # 5.关闭连接
     conn.close()

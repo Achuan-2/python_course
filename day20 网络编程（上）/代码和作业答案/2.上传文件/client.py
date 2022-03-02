@@ -3,7 +3,7 @@ import os
 import socket
 
 client = socket.socket()
-client.connect(('127.0.0.1', 8001))
+client.connect(('192.168.28.14', 8001))
 
 file_path = input("请输入要上传的文件：")
 
@@ -22,5 +22,7 @@ while True:
     read_size += len(chunk)
     if read_size == file_size:
         break
-
+# 等待，消息的回复
+reply = client.recv(1024)
+print(reply.decode("utf-8"))
 client.close()
