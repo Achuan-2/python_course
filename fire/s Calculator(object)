@@ -1,0 +1,13 @@
+[1mNAME[0m
+    calc.py - A simple calculator class.
+
+[1mSYNOPSIS[0m
+    calc.py [4mCOMMAND[0m
+
+[1mDESCRIPTION[0m
+    A simple calculator class.
+
+[1mCOMMANDS[0m
+    [1m[4mCOMMAND[0m[0m is one of the following:
+
+     double

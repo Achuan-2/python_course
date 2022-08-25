@@ -57,43 +57,37 @@ print(result)
 """
 
 # ################### 第3题 ###################
-"""
+
+# 检查文件所在路径（文件件）是否存在，如果不存在自动创建文件夹（保证写入文件不报错）
 import os
 import functools
 
+def check_dir(func):
+    @functools.wraps(func)
+    def inner(*args, **kwargs):
+        dirname=os.path.dirname(args[0])
+        if not os.path.exists(dirname):
+            os.mkdir(dirname)
 
-def gard(function):
-    @functools.wraps(function)
-    def inner(path):
-
-        # 获取路径的上级目录
-        # folder_path = path.rsplit('/', 1)[0]
-        folder_path = os.path.dirname(path)
-
-        # 不存在，就创建
-        if not os.path.exists(folder_path):
-            os.makedirs(folder_path)
-
-        res = function(path)
+        res = func(*args, **kwargs)
+      
         return res
-
     return inner
 
-
-@gard
+@check_dir
 def write_user_info(path):
     file_obj = open(path, mode='w', encoding='utf-8')
     file_obj.write("武沛齐")
     file_obj.close()
 
 
-write_user_info('/Users/wupeiqi/PycharmProjects/luffyCourse/day12/xxx.txt')
-"""
+write_user_info('day13/xxx.txt')
+
 
 
 # ################### 第4~8题 ###################
 # 分析过程，请参见视频讲解
-def func(val):
+""" def func(val):
     def inner(a1, a2):
         return a1 + a2 + val
 
@@ -109,4 +103,4 @@ v1 = data_list[0](11, 22)  # 11+22+0
 v2 = data_list[2](33, 11)  # 33+11+2
 
 print(v1)
-print(v2)
+print(v2) """
